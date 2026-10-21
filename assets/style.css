@@ -234,3 +234,19 @@ a.tel { white-space: nowrap; }
 .other .pack li { padding: 8px 0; border-bottom: 1px dotted var(--rule); }
 .other code { font-size: 12px; }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* 電話で聞くこと */
+.callsec { display: flex; flex-direction: column; gap: 14px; }
+.sub0 { font-size: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); position: relative; }
+.sub0::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 72px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--red) 0 33.4%, var(--yellow) 33.4% 66.7%, var(--blue) 66.7%); }
+.lead2 { font-size: 14px; color: var(--ink-soft); }
+.callcard { background: var(--card); border: 1.5px solid var(--rule); border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.cc-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cc-top h3 { font-size: 17px; flex: 1; min-width: 0; }
+.telbtn { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; text-decoration: none; background: var(--dc); color: var(--on); border-radius: 999px; padding: 6px 18px; font-size: 18px; font-variant-numeric: tabular-nums; }
+.telbtn .ic { width: 22px; height: 22px; }
+.cc-meta { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+.cc-q { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.cc-q label { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 8px 0; border-top: 1px dotted var(--rule); font-size: 14px; line-height: 1.65; cursor: pointer; }
+.cc-q input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--dc); }
+.cc-q input:checked + span { color: var(--ink-soft); text-decoration: line-through; }

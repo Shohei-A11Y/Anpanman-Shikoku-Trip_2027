@@ -58,6 +58,7 @@
     route: '<circle cx="12" cy="36" r="4"/><circle cx="36" cy="12" r="4"/><path d="M16 36h14a6 6 0 0 0 0-12H18a6 6 0 0 1 0-12h14"/>',
     ticket: '<path d="M6 16h36v6a3 3 0 0 0 0 6v6H6v-6a3 3 0 0 0 0-6zM30 16v18"/>',
     pin: '<path d="M24 42S10 29 10 19a14 14 0 0 1 28 0c0 10-14 23-14 23z"/><circle cx="24" cy="19" r="5"/>',
+    phone: '<path d="M14 8h6l3 9-4 3a22 22 0 0 0 9 9l3-4 9 3v6a4 4 0 0 1-4 4C22 38 10 26 10 12a4 4 0 0 1 4-4z"/>',
     grid: '<rect x="8" y="8" width="13" height="13" rx="3"/><rect x="27" y="8" width="13" height="13" rx="3"/><rect x="8" y="27" width="13" height="13" rx="3"/><rect x="27" y="27" width="13" height="13" rx="3"/>',
     umb: '<path d="M8 26a16 16 0 0 1 32 0zM24 26v12a3 3 0 0 1-6 0"/>'
   };
@@ -245,10 +246,34 @@
     return '<div class="pad"><header class="pagehead"><small>Stay &amp; Drive</small><h1>やど・くるま</h1></header>' + chips + body + '</div>';
   }
 
+
+  /* ---------- 電話で聞くこと（聞いたら、チェック。この端末だけに保存） ---------- */
+  function callChecks() { try { return JSON.parse(get('calls') || '{}'); } catch (e) { return {}; } }
+  function viewCalls() {
+    var C = P.calls, ck = callChecks();
+    var cards = C.list.map(function (c, ci) {
+      var d = P.days[c.day - 1];
+      var qs = c.q.map(function (q, qi) {
+        var id = ci + '-' + qi;
+        return '<li><label><input type="checkbox" data-ck="' + id + '"' + (ck[id] ? ' checked' : '') + '><span>' + esc(q) + '</span></label></li>';
+      }).join('');
+      return '<article class="callcard ' + d.color + '"><div class="cc-top"><span class="badge">' + c.day + '日目</span><h3>' + esc(c.who) + '</h3></div>' +
+        '<a class="telbtn" href="tel:' + c.tel + '">' + icon('phone') + '<b>' + c.tel + '</b></a>' +
+        '<p class="cc-meta">受付：' + esc(c.hours) + '<br>かける時期：' + esc(c.when) + '</p><ul class="cc-q">' + qs + '</ul></article>';
+    }).join('');
+    return '<div class="callsec"><h2 class="sub0">電話で聞くこと</h2><p class="lead2">調べても、公式で確認できなかった点。聞いたら、チェックを入れる（この端末だけに保存される）。電話番号は、公式の掲載や、公式以外の掲載で見つけたもの<span class="tag t-gs">推測</span>。つながらないときは、公式サイトの問い合わせ先を使う。</p>' +
+      '<div class="kidsbox"><b>はじめの一言（読み上げ用）</b><p>' + esc(C.intro) + '</p></div>' + cards + '</div>';
+  }
+  app.addEventListener('change', function (e) {
+    var t = e.target; if (!t || !t.getAttribute || !t.getAttribute('data-ck')) return;
+    var ck = callChecks(); if (t.checked) ck[t.getAttribute('data-ck')] = 1; else delete ck[t.getAttribute('data-ck')];
+    set('calls', JSON.stringify(ck));
+  });
+
   /* ---------- その他 ---------- */
   function viewMore() {
     var t = document.getElementById('tpl-other');
-    return '<div class="pad"><header class="pagehead"><small>More</small><h1>その他</h1><p>費用、気をつける点、電話で聞くこと、持ち物。</p></header><p class="notice">調査日：' + esc(D.asOf) + '。【確定】公式で確認できた事実／【予想】過去の実績からの見込み／【推測】公式以外の情報や判断。「確定」以外は、予約の前に公式ページか電話で確認する。</p><div class="other">' + (t ? t.innerHTML : '') + '</div></div>';
+    return '<div class="pad"><header class="pagehead"><small>More</small><h1>その他</h1><p>費用、気をつける点、電話で聞くこと、持ち物。</p></header><p class="notice">調査日：' + esc(D.asOf) + '。【確定】公式で確認できた事実／【予想】過去の実績からの見込み／【推測】公式以外の情報や判断。「確定」以外は、予約の前に公式ページか電話で確認する。</p>' + viewCalls() + '<div class="other">' + (t ? t.innerHTML : '') + '</div></div>';
   }
 
   /* ---------- ルーティング ---------- */

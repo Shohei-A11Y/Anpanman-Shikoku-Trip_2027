@@ -1,6 +1,6 @@
 // オフラインでも開けるようにするための仕組み。ネットにつながるときは新しい内容を取りに行き、つながらないときは保存した内容を使う。
-var CACHE = 'shiori-anpanman-v3';
-var FILES = ['./', 'index.html', 'assets/style.css?v=3', 'assets/app.js?v=3', 'assets/plan.js?v=3', 'assets/trip-data.js?v=3', 'manifest.webmanifest', 'assets/icon.svg', 'assets/icon-192.png'];
+var CACHE = 'shiori-anpanman-v4';
+var FILES = ['./', 'index.html', 'assets/style.css?v=4', 'assets/app.js?v=4', 'assets/plan.js?v=4', 'assets/trip-data.js?v=4', 'manifest.webmanifest', 'assets/icon.svg', 'assets/icon-192.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }).then(function () { return self.skipWaiting(); }));
 });
