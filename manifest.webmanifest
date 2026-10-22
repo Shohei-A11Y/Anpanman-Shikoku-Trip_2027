@@ -1,14 +1,21 @@
 {
+  "id": "/Anpanman-Shikoku-Trip_2027/",
   "name": "アンパンマン列車 四国しおり",
   "short_name": "四国しおり",
+  "description": "アンパンマン列車で四国へ。2027年10月15日〜18日の家族旅行のしおり。",
+  "lang": "ja",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#EEEFEA",
-  "theme_color": "#C65B50",
+  "orientation": "portrait",
+  "background_color": "#CFE3F1",
+  "theme_color": "#D9534A",
+  "categories": ["travel"],
+  "prefer_related_applications": false,
   "icons": [
-    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
-    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "assets/icon-any-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-any-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
